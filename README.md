@@ -18,12 +18,13 @@ Esse script automatiza o processo de scraping de uma tabela web usando Selenium,
 - **Tesseract OCR** instalado no sistema e disponível no PATH, ou configure o caminho em `config.py`.
   - Windows: Instalar via instalador oficial (ex.: `C:\Program Files\Tesseract-OCR\tesseract.exe`)
   - Linux/Mac: Instalar via package manager (ex.: `sudo apt install tesseract-ocr`)
+  - Download em: https://github.com/UB-Mannheim/tesseract/wiki
 
 ## Configuração e Execução
 1. **Clonar o repositório**
    ```bash
-   git clone https://github.com/romulosousi/teste-tecnico-azureocr.git
-   cd teste-tecnico-azureocr
+   git clone https://github.com/romulosousi/rpa-challenge-ocr-azure.git
+   cd rpa-challenge-ocr-azure
    ```
 
 2. **Instalar dependências**
