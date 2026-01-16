@@ -23,7 +23,6 @@ def process_table(driver):
     main_window = driver.current_window_handle
 
     while True:
-        # Aguarda as linhas da tabela carregarem
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#tableSandbox tbody tr")))
         rows = driver.find_elements(By.CSS_SELECTOR, "#tableSandbox tbody tr")
 
@@ -35,7 +34,6 @@ def process_table(driver):
             due_date_str = cols[2].text.strip()
             due_date_dt = datetime.strptime(due_date_str, "%d-%m-%Y")
 
-            # Regra: processar apenas se a data for anterior ou igual a hoje
             if due_date_dt <= datetime.today():
                 link = cols[3].find_element(By.TAG_NAME, "a")
                 href = link.get_attribute("href")
@@ -46,7 +44,6 @@ def process_table(driver):
                     image_path = os.path.join(SAVE_DIR, f"invoice_{invoice_id}.jpg")
                     with open(image_path, "wb") as f:
                         f.write(response.content)
-                    # Processar imagem com OCR
                     invoice_no, invoice_date, company_name, total_due = process_image_ocr(image_path)
                     invoices_data.append([
                         invoice_id,
@@ -57,11 +54,10 @@ def process_table(driver):
                         total_due
                     ])
 
-        # Paginação
         next_btn = driver.find_element(By.ID, "tableSandbox_next")
         if "disabled" in next_btn.get_attribute("class"):
             break
-        driver.execute_script("arguments[0].scrollIntoView();", next_btn)
 
+        driver.execute_script("arguments[0].click();", next_btn)
 
     return invoices_data
