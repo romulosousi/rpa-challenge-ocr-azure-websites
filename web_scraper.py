@@ -61,6 +61,7 @@ def process_table(driver):
         next_btn = driver.find_element(By.ID, "tableSandbox_next")
         if "disabled" in next_btn.get_attribute("class"):
             break
-        next_btn.click()
+        driver.execute_script("arguments[0].scrollIntoView();", next_btn)
+
 
     return invoices_data
